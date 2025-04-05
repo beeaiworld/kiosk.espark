@@ -1,65 +1,134 @@
 # ESpark Mall Interactive Wayfinding Kiosk
 
-![ESpark Mall Wayfinding](https://i.ibb.co/rHKDJLp/espark-screenshot.jpg)
+A modern digital kiosk solution for indoor navigation in shopping malls, built with Mapbox GL JS and Three.js.
 
-## Project Overview
+## Features
 
-ESpark Mall Interactive Wayfinding is a modern digital kiosk solution designed to help visitors navigate within shopping malls. Using advanced mapping technologies, this application offers intuitive wayfinding, store location, and routing features in an elegant, user-friendly interface.
+- 🗺️ Interactive Map Navigation
+  - Smooth zoom, pan, and rotate controls
+  - Custom map style definitions
+  - Performance-optimized rendering
 
-### Key Features
+- 🏢 Indoor Precise Wayfinding
+  - Detailed store boundaries
+  - Multi-layer visualization
+  - Custom polygon layers
 
-- **Interactive Map Navigation:** Smooth, responsive map interface with intuitive zoom, pan, and rotate controls
-- **Indoor Precise Wayfinding:** Detailed indoor mapping with accurate store boundaries and locations
-- **Visual Store Identification:** Color-coded store polygons with clear labeling
-- **Key Point Indicators:** Clearly marked entrances/exits, escalators, and information kiosks
-- **Multi-layer Visualization:** Custom polygon layers with optimized rendering
-- **Responsive Design:** Optimized for both portrait kiosk displays and mobile devices
+- 🎯 Visual Store Identification
+  - Color-coded store polygons
+  - Clear labeling system
+  - Key point indicators
 
-## Technical Implementation
+- 📱 Multi-platform Support
+  - Portrait kiosk display optimization
+  - Responsive mobile web version
+  - LTR and RTL language support
 
-### Technologies Used
+## Technical Stack
 
-- **Mapbox GL JS:** Core mapping technology for high-performance vector maps
-- **Custom GeoJSON Data Layers:** Precisely defined store polygons and points of interest
-- **Layer Management:** Multiple interactive map layers with custom styling
-- **Dynamic Feature Rendering:** Performant rendering of complex indoor layouts
-- **Custom Overlay System:** Specially designed icons and markers for mall facilities
+- **Core Mapping**: Mapbox GL JS
+- **3D Visualization**: Three.js
+- **Data Structure**: Custom GeoJSON Layers
+- **Styling**: Mapbox Studio
+- **Responsive Design**: Modern CSS/JavaScript
 
-### Development Approach
+## Project Structure
 
-The application is built using a component-based architecture focusing on:
+```
+espark-mall-wayfinding/
+├── src/
+│   ├── components/         # React components
+│   ├── map/               # Mapbox implementation
+│   ├── styles/            # CSS and styling
+│   ├── utils/             # Helper functions
+│   └── assets/            # Static assets
+├── public/                # Public assets
+└── docs/                  # Documentation
+```
 
-1. **Performance Optimization:** Ensuring smooth map rendering even with complex polygon data
-2. **Data Structure Design:** Carefully organized GeoJSON for optimal map visualization
-3. **User Experience:** Intuitive controls and clear visual hierarchy
-4. **Layout Architecture:** Designed for both portrait kiosk displays and mobile web compatibility
+## Setup and Installation
 
-## Example Implementation
+1. Clone the repository:
+```bash
+git clone https://github.com/beeaiworld/kiosk.espark.git
+cd kiosk.espark
+```
 
-This implementation showcases:
+2. Install dependencies:
+```bash
+npm install
+```
 
-- Precise indoor mapping of an actual shopping mall floor plan
-- Multiple store locations with accurate boundaries
-- Clear visual identification system
-- Supporting infrastructure elements (entrances, exits, escalators)
-- Information points for visitor assistance
+3. Set up environment variables:
+```bash
+cp .env.example .env
+# Add your Mapbox access token to .env
+```
+
+4. Start development server:
+```bash
+npm start
+```
+
+## Configuration
+
+### Mapbox Setup
+1. Create a Mapbox account and obtain an access token
+2. Configure map style in Mapbox Studio
+3. Set up custom layers and overlays
+
+### Kiosk Mode
+- Configure for portrait orientation
+- Enable touch interface
+- Set up accessibility features
+
+## Development Guidelines
+
+### Code Style
+- Follow ESLint configuration
+- Use Prettier for code formatting
+- Maintain consistent component structure
+
+### Performance Optimization
+- Implement lazy loading for map layers
+- Optimize GeoJSON data structure
+- Use efficient rendering techniques
 
 ## Deployment
 
-The application is designed for deployment on:
+### Kiosk Deployment
+1. Build production version:
+```bash
+npm run build
+```
 
-- Touch-screen kiosks (primarily portrait orientation)
-- Web servers for mobile device access
-- Standalone installations within mall environments
+2. Deploy to kiosk server
+3. Configure for touch interface
+4. Set up automatic updates
 
-## Future Enhancements
+### Mobile Web Deployment
+1. Configure responsive design
+2. Optimize for mobile browsers
+3. Implement service worker for offline support
 
-- Path routing between selected locations
-- Multi-floor navigation capabilities
-- Real-time store promotions integration
-- Accessibility features for users with disabilities
-- Multi-language support with RTL compatibility
+## Contributing
 
----
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
-*This project demonstrates expertise in Mapbox GL implementation, geospatial data management, and interactive kiosk application development. The code structure emphasizes maintainability, performance, and extensibility for future feature additions.* 
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Mapbox for the core mapping technology
+- Three.js community for 3D visualization support
+- Contributors and maintainers
+
+## Contact
+
+For questions and support, please contact the development team.
