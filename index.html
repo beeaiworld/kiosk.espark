@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVM Mağaza Konumları</title>
+    <title>Mall Store Locations</title>
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
     <style>
@@ -49,11 +49,11 @@
 </head>
 <body>
     <div class="title">
-        <h2>AVM Mağaza Konumları</h2>
-        <p>AVM Kat Planı</p>
+        <h2>Mall Store Locations</h2>
+        <p>Mall Floor Plan</p>
     </div>
     <div class="legend">
-        <h3>Mağazalar</h3>
+        <h3>Stores</h3>
         <div class="legend-item">
             <div class="color-box" style="background-color: #FF69B4;"></div>
             <span>Koton</span>
@@ -76,29 +76,29 @@
         </div>
         <div class="legend-item">
             <div class="color-box" style="background-color: #9400D3;"></div>
-            <span>Sevil Kozmetik</span>
+            <span>Sevil Cosmetics</span>
         </div>
         <div class="legend-item">
             <div class="color-box" style="background-color: #008000;"></div>
-            <span>Saat</span>
+            <span>Watch Store</span>
         </div>
         <div class="legend-item">
             <div class="color-box" style="background-color: #FF0000;"></div>
-            <span>Giriş & Çıkış</span>
+            <span>Entrance & Exit</span>
         </div>
         <div class="legend-item">
             <div class="color-box" style="background-color: #663399;"></div>
-            <span>Yürüyen Merdiven</span>
+            <span>Escalator</span>
         </div>
         <div class="legend-item">
             <div class="color-box" style="background-color: #00BFFF;"></div>
-            <span>Kiosk Board</span>
+            <span>Information Kiosk</span>
         </div>
     </div>
     <div id="map"></div>
 
     <script>
-        // Mapbox API anahtarını ayarla
+        // Set Mapbox API key
         mapboxgl.accessToken = 'pk.eyJ1IjoibWFjYm5vdCIsImEiOiJjbTh1N2dwZGYwa3J3Mm1zanlpaTVlaTNxIn0.njA8-XISTBzcYgta0kWyaQ';
         
         // Koton mağaza koordinatları
@@ -1604,7 +1604,7 @@
                 'type': 'symbol',
                 'source': 'entrances-exits',
                 'layout': {
-                    'text-field': 'GİRİŞ',
+                    'text-field': 'ENTRANCE',
                     'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
                     'text-size': 12,
                     'text-offset': [0, -2.2],
@@ -1650,7 +1650,7 @@
                 'type': 'symbol',
                 'source': 'escalator',
                 'layout': {
-                    'text-field': 'YÜRÜYEN MERDİVEN',
+                    'text-field': 'ESCALATOR',
                     'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
                     'text-size': 10,
                     'text-offset': [0, -2.2],
@@ -1696,7 +1696,7 @@
                 'type': 'symbol',
                 'source': 'kiosk',
                 'layout': {
-                    'text-field': 'BİLGİ EKRANI',
+                    'text-field': 'INFO KIOSK',
                     'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
                     'text-size': 10,
                     'text-offset': [0, -2.2],
