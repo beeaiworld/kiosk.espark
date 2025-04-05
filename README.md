@@ -1,55 +1,55 @@
-# Koton Mağaza Konum Haritası
+# ESpark AVM 3D Kat Planı
 
-Bu proje, AVM içerisindeki Koton mağazalarının konumlarını Mapbox kullanarak gösteren bir wayfinding (yön bulma) uygulamasıdır.
+Bu proje, Mapbox GL JS kullanılarak geliştirilmiş interaktif bir alışveriş merkezi kat planı görselleştirmesidir. Kullanıcılar, AVM içerisindeki mağazaları harita üzerinde görebilir, bilgi alabilir ve yön tarifi özelliklerinden faydalanabilirler.
 
 ## Özellikler
 
-- Koton mağazalarının konumlarını haritada gösterir
-- Her mağaza için tıklanabilir işaretçiler
-- Mağaza bilgilerini popup olarak gösterir
-- Tam ekran modu
-- Konum takibi
-- Yakınlaştırma ve yön kontrolleri
+* Mağaza konumlarını görüntüleme
+* Mağaza sınırlarını ve etiketlerini gösterme
+* Giriş/çıkış noktalarını işaretleme
+* Yürüyen merdiven ve bilgi ekranı konumlarını gösterme
+* İnteraktif harita kontrolleri (yakınlaştırma, uzaklaştırma, kaydırma)
+* Renk kodlu mağaza ve tesis gösterimi
+* Açıklayıcı lejant
 
-## Kurulum ve Çalıştırma
+## Mağazalar ve Tesisler
+
+Projede aşağıdaki mağazalar ve tesisler modellenmiştir:
+
+* Koton
+* Sevil
+* Greyder
+* Adidas
+* Nike
+* Sevil Kozmetik
+* Saat
+* Giriş & Çıkış Noktaları
+* Yürüyen Merdiven
+* Kiosk Board (Bilgi Ekranı)
+
+## Kurulum
 
 1. Projeyi bilgisayarınıza indirin
-2. `index.html` dosyasını bir web tarayıcısında açın
-3. Alternatif olarak, basit bir HTTP sunucusu kullanabilirsiniz:
+2. İndirilen klasörde yerel bir HTTP sunucusu başlatın:
 
 ```bash
-# Python 3 ile basit bir HTTP sunucusu başlatma
-python -m http.server
-
-# Tarayıcınızda şu adresi açın
-# http://localhost:8000
+python -m http.server 8000
 ```
 
-## Kullanılan Teknolojiler
+3. Tarayıcınızda `http://localhost:8000` adresine gidin
 
-- HTML5
-- CSS3
-- JavaScript
-- [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/api/)
+## Kullanım
 
-## Harita Kontrollerini Kullanma
+* Mağazaları görmek için haritayı yakınlaştırıp uzaklaştırabilirsiniz
+* Harita üzerindeki renk kodlu alanlar farklı mağazaları gösterir
+* Sağ alttaki lejant, hangi rengin hangi mağazaya ait olduğunu belirtir
+* Giriş/çıkış noktaları, yürüyen merdiven ve bilgi ekranı özel sembollerle işaretlenmiştir
 
-- **Yakınlaştırma/Uzaklaştırma**: Sağ üst köşedeki + ve - butonları veya fare tekerleği
-- **Haritayı Döndürme**: Sağ tıklayıp sürükleme
-- **Haritayı Kaydırma**: Sol tıklayıp sürükleme
-- **Tam Ekran**: Sağ üstteki tam ekran butonu
-- **Konum Takibi**: Sağ üstteki konum butonu
+## Teknolojiler
 
-## GeoJSON Verileri
+* HTML, CSS, JavaScript
+* Mapbox GL JS
 
-Harita, aşağıdaki koordinatlara sahip Koton mağazalarını göstermektedir:
+## Geliştirici Bilgileri
 
-- Koton 1: 30.510751101037727, 39.78351713722205
-- Koton 2: 30.511335038076254, 39.78306502728435
-- Koton 3: 30.510575341707437, 39.78328281398464
-- Koton 4: 30.511281723664723, 39.78298869530573
-- Koton 5: 30.511158772290514, 39.78295194086061
-- Koton 6: 30.51088965609395, 39.7831048390492
-- Koton 7: 30.51108450141291, 39.783283383427886
-
-Bu koordinatlar Eskişehir'deki bir AVM'ye ait olabilir ve wayfinding uygulaması için kullanılmaktadır. 
+Bu proje, BeeAI World tarafından geliştirilmiştir. Daha fazla bilgi için: https://github.com/beeaiworld 
