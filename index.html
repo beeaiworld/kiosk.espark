@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVM Mağaza Konumları</title>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+        .mapboxgl-popup {
+            max-width: 200px;
+        }
+        .mapboxgl-popup-content {
+            text-align: center;
+        }
+        .title {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            z-index: 1;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .legend {
+            position: absolute;
+            bottom: 20px;
+            right: 10px;
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            z-index: 1;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .color-box {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">
+        <h2>AVM Mağaza Konumları</h2>
+        <p>AVM Kat Planı</p>
+    </div>
+    <div class="legend">
+        <h3>Mağazalar</h3>
+        <div class="legend-item">
+            <div class="color-box" style="background-color: #FF69B4;"></div>
+            <span>Koton</span>
+        </div>
+        <div class="legend-item">
+            <div class="color-box" style="background-color: #4B0082;"></div>
+            <span>Sevil</span>
+        </div>
+        <div class="legend-item">
+            <div class="color-box" style="background-color: #8B4513;"></div>
+            <span>Greyder</span>
+        </div>
+        <div class="legend-item">
+            <div class="color-box" style="background-color: #0000FF;"></div>
+            <span>Adidas</span>
+        </div>
+        <div class="legend-item">
+            <div class="color-box" style="background-color: #FF6600;"></div>
+            <span>Nike</span>
+        </div>
+        <div class="legend-item">
+            <div class="color-box" style="background-color: #9400D3;"></div>
+            <span>Sevil Kozmetik</span>
+        </div>
+        <div class="legend-item">
+            <div class="color-box" style="background-color: #008000;"></div>
+            <span>Saat</span>
+        </div>
+        <div class="legend-item">
+            <div class="color-box" style="background-color: #FF0000;"></div>
+            <span>Giriş & Çıkış</span>
+        </div>
+        <div class="legend-item">
+            <div class="color-box" style="background-color: #663399;"></div>
+            <span>Yürüyen Merdiven</span>
+        </div>
+        <div class="legend-item">
+            <div class="color-box" style="background-color: #00BFFF;"></div>
+            <span>Kiosk Board</span>
+        </div>
+    </div>
+    <div id="map"></div>
+
+    <script>
+        // Mapbox API anahtarını ayarla
+        mapboxgl.accessToken = 'pk.eyJ1IjoibWFjYm5vdCIsImEiOiJjbTh1N2dwZGYwa3J3Mm1zanlpaTVlaTNxIn0.njA8-XISTBzcYgta0kWyaQ';
+        
+        // Koton mağaza koordinatları
+        const kotonLocations = [
+            {
+                "type": "Feature",
+                "properties": {
+                    "Koton": "",
+                    "title": "Koton 1"
+                },
+                "geometry": {
+                    "coordinates": [30.510751101037727, 39.78351713722205],
+                    "type": "Point"
+                },
+                "id": 7
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "Koton": "",
+                    "title": "Koton 2"
+                },
+                "geometry": {
+                    "coordinates": [30.511335038076254, 39.78306502728435],
+                    "type": "Point"
+                },
+                "id": 8
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "Koton": "",
+                    "title": "Koton 3"
+                },
+                "geometry": {
+                    "coordinates": [30.510575341707437, 39.78328281398464],
+                    "type": "Point"
+                },
+                "id": 9
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "Koton": "",
+                    "title": "Koton 4"
+                },
+                "geometry": {
+                    "coordinates": [30.511281723664723, 39.78298869530573],
+                    "type": "Point"
+                },
+                "id": 10
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "Koton": "",
+                    "title": "Koton 5"
+                },
+                "geometry": {
+                    "coordinates": [30.511158772290514, 39.78295194086061],
+                    "type": "Point"
+                },
+                "id": 11
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "Koton": "",
+                    "title": "Koton 6"
+                },
+                "geometry": {
+                    "coordinates": [30.51088965609395, 39.7831048390492],
+                    "type": "Point"
+                },
+                "id": 12
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "Koton": "",
+                    "title": "Koton 7"
+                },
+                "geometry": {
+                    "coordinates": [30.51108450141291, 39.783283383427886],
+                    "type": "Point"
+                },
+                "id": 13
+            }
+        ];
+        
+        // Sevil mağaza koordinatları
+        const sevilLocations = [
+            {
+                "type": "Feature",
+                "properties": {
+                    "sevil": "",
+                    "title": "Sevil 1"
+                },
+                "geometry": {
+                    "coordinates": [30.51113994041893, 39.78292222418682],
+                    "type": "Point"
+                },
+                "id": 14
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "sevil": "",
+                    "title": "Sevil 2"
+                },
+                "geometry": {
+                    "coordinates": [30.511158533763535, 39.78279964251129],
+                    "type": "Point"
+                },
+                "id": 15
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "sevil": "",
+                    "title": "Sevil 3"
+                },
+                "geometry": {
+                    "coordinates": [30.511010011177092, 39.78258437004672],
+                    "type": "Point"
+                },
+                "id": 16
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "sevil": "",
+                    "title": "Sevil 4"
+                },
+                "geometry": {
+                    "coordinates": [30.510699291906263, 39.782717829754034],
+                    "type": "Point"
+                },
+                "id": 17
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "sevil": "",
+                    "title": "Sevil 5"
+                },
+                "geometry": {
+                    "coordinates": [30.51027986302836, 39.78290596911225],
+                    "type": "Point"
+                },
+                "id": 18
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "sevil": "",
+                    "title": "Sevil 6"
+                },
+                "geometry": {
+                    "coordinates": [30.51055399234039, 39.78325251122595],
+                    "type": "Point"
+                },
+                "id": 19
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "sevil": "",
+                    "title": "Sevil 7"
+                },
+                "geometry": {
+                    "coordinates": [30.510845920469023, 39.78308173066827],
+                    "type": "Point"
+                },
+                "id": 20
+            }
+        ];
+        
+        // Greyder mağaza koordinatları
+        const greyderLocations = [
+            {
+                "type": "Feature",
+                "properties": {
+                    "Greyder": "",
+                    "title": "Greyder 1"
+                },
+                "geometry": {
+                    "coordinates": [30.51071079621832, 39.783536753829935],
+                    "type": "Point"
+                },
+                "id": 21
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "Greyder": "",
+                    "title": "Greyder 2"
+                },
+                "geometry": {
+                    "coordinates": [30.510637165769623, 39.783560535532445],
+                    "type": "Point"
+                },
+                "id": 22
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "Greyder": "",
+                    "title": "Greyder 3"
+                },
+                "geometry": {
+                    "coordinates": [30.5102261730178, 39.78289739103258],
+                    "type": "Point"
+                },
+                "id": 23
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "Greyder": "",
+                    "title": "Greyder 4"
+                },
+                "geometry": {
+                    "coordinates": [30.51015816515826, 39.78292695659664],
+                    "type": "Point"
+                },
+                "id": 24
+            }
+        ];
+
+        // Adidas mağaza koordinatları
+        const adidasLocations = [
+            {
+                "type": "Feature",
+                "properties": {
+                    "adidas": "",
+                    "title": "Adidas 1"
+                },
+                "geometry": {
+                    "coordinates": [30.510984399102426, 39.782561665783874],
+                    "type": "Point"
+                },
+                "id": 25
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "adidas": "",
+                    "title": "Adidas 2"
+                },
+                "geometry": {
+                    "coordinates": [30.5106877048523, 39.78269085047549],
+                    "type": "Point"
+                },
+                "id": 26
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "adidas": "",
+                    "title": "Adidas 3"
+                },
+                "geometry": {
+                    "coordinates": [30.510377558294437, 39.78227025969849],
+                    "type": "Point"
+                },
+                "id": 27
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "adidas": "",
+                    "title": "Adidas 4"
+                },
+                "geometry": {
+                    "coordinates": [30.510452700642503, 39.78218893434877],
+                    "type": "Point"
+                },
+                "id": 28
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "adidas": "",
+                    "title": "Adidas 5"
+                },
+                "geometry": {
+                    "coordinates": [30.510460227946425, 39.7821150983186],
+                    "type": "Point"
+                },
+                "id": 29
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "adidas": "",
+                    "title": "Adidas 6"
+                },
+                "geometry": {
+                    "coordinates": [30.510434713556748, 39.78206364455394],
+                    "type": "Point"
+                },
+                "id": 30
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "adidas": "",
+                    "title": "Adidas 7"
+                },
+                "geometry": {
+                    "coordinates": [30.51052614702394, 39.78202324232171],
+                    "type": "Point"
+                },
+                "id": 31
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "adidas": "",
+                    "title": "Adidas 8"
+                },
+                "geometry": {
+                    "coordinates": [30.51060460426325, 39.7819918251752],
+                    "type": "Point"
+                },
+                "id": 32
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "adidas": "",
+                    "title": "Adidas 9"
+                },
+                "geometry": {
+                    "coordinates": [30.51075235600331, 39.78221159464911],
+                    "type": "Point"
+                },
+                "id": 33
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "adidas": "",
+                    "title": "Adidas 10"
+                },
+                "geometry": {
+                    "coordinates": [30.51087940712185, 39.782395084281376],
+                    "type": "Point"
+                },
+                "id": 34
+            }
+        ];
+
+        // Nike mağaza koordinatları
+        const nikeLocations = [
+            {
+                "type": "Feature",
+                "properties": {
+                    "nike": "",
+                    "title": "Nike 1"
+                },
+                "geometry": {
+                    "coordinates": [30.510435513752583, 39.78206381720062],
+                    "type": "Point"
+                },
+                "id": 35
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "nike": "",
+                    "title": "Nike 2"
+                },
+                "geometry": {
+                    "coordinates": [30.510525580537177, 39.78202288813267],
+                    "type": "Point"
+                },
+                "id": 36
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "nike": "",
+                    "title": "Nike 3"
+                },
+                "geometry": {
+                    "coordinates": [30.51060538303534, 39.78199000985333],
+                    "type": "Point"
+                },
+                "id": 37
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "nike": "",
+                    "title": "Nike 4"
+                },
+                "geometry": {
+                    "coordinates": [30.510467890693633, 39.78179811450795],
+                    "type": "Point"
+                },
+                "id": 38
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "nike": "",
+                    "title": "Nike 5"
+                },
+                "geometry": {
+                    "coordinates": [30.510425781644784, 39.78180860522454],
+                    "type": "Point"
+                },
+                "id": 39
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "nike": "",
+                    "title": "Nike 6"
+                },
+                "geometry": {
+                    "coordinates": [30.510309956413295, 39.781622445712344],
+                    "type": "Point"
+                },
+                "id": 40
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "nike": "",
+                    "title": "Nike 7"
+                },
+                "geometry": {
+                    "coordinates": [30.510007656485243, 39.78176005966853],
+                    "type": "Point"
+                },
+                "id": 41
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "nike": "",
+                    "title": "Nike 8"
+                },
+                "geometry": {
+                    "coordinates": [30.51017278998947, 39.781989822583995],
+                    "type": "Point"
+                },
+                "id": 42
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "nike": "",
+                    "title": "Nike 9"
+                },
+                "geometry": {
+                    "coordinates": [30.51029185695117, 39.78198105111139],
+                    "type": "Point"
+                },
+                "id": 43
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "nike": "",
+                    "title": "Nike 10"
+                },
+                "geometry": {
+                    "coordinates": [30.510378514458665, 39.782015452160294],
+                    "type": "Point"
+                },
+                "id": 44
+            }
+        ];
+
+        // Sevil Kozmetik mağaza koordinatları
+        const sevilKozmetikLocations = [
+            {
+                "type": "Feature",
+                "properties": {
+                    "sevil": "",
+                    "title": "Sevil Kozmetik 1"
+                },
+                "geometry": {
+                    "coordinates": [30.5101280846431, 39.782008449907266],
+                    "type": "Point"
+                },
+                "id": 45
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "sevil": "",
+                    "title": "Sevil Kozmetik 2"
+                },
+                "geometry": {
+                    "coordinates": [30.509961693323078, 39.78178134068199],
+                    "type": "Point"
+                },
+                "id": 46
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "sevil": "",
+                    "title": "Sevil Kozmetik 3"
+                },
+                "geometry": {
+                    "coordinates": [30.509464208454943, 39.78199781584922],
+                    "type": "Point"
+                },
+                "id": 47
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "sevil": "",
+                    "title": "Sevil Kozmetik 4"
+                },
+                "geometry": {
+                    "coordinates": [30.510049971308035, 39.78209122081549],
+                    "type": "Point"
+                },
+                "id": 48
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "sevil": "",
+                    "title": "Sevil Kozmetik 5"
+                },
+                "geometry": {
+                    "coordinates": [30.510045561065624, 39.782166135259644],
+                    "type": "Point"
+                },
+                "id": 49
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "sevil": "",
+                    "title": "Sevil Kozmetik 6"
+                },
+                "geometry": {
+                    "coordinates": [30.51008172613163, 39.78222359050878],
+                    "type": "Point"
+                },
+                "id": 50
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "sevil": "",
+                    "title": "Sevil Kozmetik 7"
+                },
+                "geometry": {
+                    "coordinates": [30.509976459302834, 39.78227509984956],
+                    "type": "Point"
+                },
+                "id": 51
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "sevil": "",
+                    "title": "Sevil Kozmetik 8"
+                },
+                "geometry": {
+                    "coordinates": [30.509878064792417, 39.7823274653156],
+                    "type": "Point"
+                },
+                "id": 52
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "sevil": "",
+                    "title": "Sevil Kozmetik 9"
+                },
+                "geometry": {
+                    "coordinates": [30.50975411066861, 39.782390405047664],
+                    "type": "Point"
+                },
+                "id": 53
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "sevil": "",
+                    "title": "Sevil Kozmetik 10"
+                },
+                "geometry": {
+                    "coordinates": [30.509621797793557, 39.78221006920447],
+                    "type": "Point"
+                },
+                "id": 54
+            }
+        ];
+
+        // Koton - Saat yönünde sıralayarak daha düzgün bir poligon oluşturma
+        const kotonPolygonCoordinates = [
+            [30.511335038076254, 39.78306502728435],  // Koton 2
+            [30.511281723664723, 39.78298869530573],  // Koton 4
+            [30.511158772290514, 39.78295194086061],  // Koton 5
+            [30.51088965609395, 39.7831048390492],    // Koton 6
+            [30.510575341707437, 39.78328281398464],  // Koton 3
+            [30.510751101037727, 39.78351713722205],  // Koton 1
+            [30.51108450141291, 39.783283383427886],  // Koton 7
+            [30.511335038076254, 39.78306502728435]   // Koton 2 (kapatmak için)
+        ];
+
+        // Sevil - Saat yönünde sıralayarak daha düzgün bir poligon oluşturma
+        const sevilPolygonCoordinates = [
+            [30.511158533763535, 39.78279964251129],  // Sevil 2
+            [30.511010011177092, 39.78258437004672],  // Sevil 3
+            [30.510699291906263, 39.782717829754034], // Sevil 4
+            [30.51027986302836, 39.78290596911225],   // Sevil 5
+            [30.51055399234039, 39.78325251122595],   // Sevil 6
+            [30.510845920469023, 39.78308173066827],  // Sevil 7
+            [30.51113994041893, 39.78292222418682],   // Sevil 1
+            [30.511158533763535, 39.78279964251129]   // Sevil 2 (kapatmak için)
+        ];
+        
+        // Greyder - Saat yönünde sıralayarak daha düzgün bir poligon oluşturma
+        const greyderPolygonCoordinates = [
+            [30.51071079621832, 39.783536753829935],   // Greyder 1
+            [30.510637165769623, 39.783560535532445],  // Greyder 2
+            [30.51015816515826, 39.78292695659664],    // Greyder 4
+            [30.5102261730178, 39.78289739103258],     // Greyder 3
+            [30.51071079621832, 39.783536753829935]    // Greyder 1 (kapatmak için)
+        ];
+
+        // Adidas - Saat yönünde sıralayarak daha düzgün bir poligon oluşturma
+        const adidasPolygonCoordinates = [
+            [30.510984399102426, 39.782561665783874],   // Adidas 1
+            [30.5106877048523, 39.78269085047549],      // Adidas 2 
+            [30.510377558294437, 39.78227025969849],    // Adidas 3
+            [30.510452700642503, 39.78218893434877],    // Adidas 4
+            [30.510460227946425, 39.7821150983186],     // Adidas 5
+            [30.510434713556748, 39.78206364455394],    // Adidas 6
+            [30.51052614702394, 39.78202324232171],     // Adidas 7
+            [30.51060460426325, 39.7819918251752],      // Adidas 8
+            [30.51075235600331, 39.78221159464911],     // Adidas 9
+            [30.51087940712185, 39.782395084281376],    // Adidas 10
+            [30.510984399102426, 39.782561665783874]    // Adidas 1 (kapatmak için)
+        ];
+
+        // Nike - Saat yönünde sıralayarak daha düzgün bir poligon oluşturma
+        const nikePolygonCoordinates = [
+            [30.510435513752583, 39.78206381720062],   // Nike 1
+            [30.510525580537177, 39.78202288813267],   // Nike 2
+            [30.51060538303534, 39.78199000985333],    // Nike 3
+            [30.510467890693633, 39.78179811450795],   // Nike 4
+            [30.510425781644784, 39.78180860522454],   // Nike 5
+            [30.510309956413295, 39.781622445712344],  // Nike 6
+            [30.510007656485243, 39.78176005966853],   // Nike 7
+            [30.51017278998947, 39.781989822583995],   // Nike 8
+            [30.51029185695117, 39.78198105111139],    // Nike 9
+            [30.510378514458665, 39.782015452160294],  // Nike 10
+            [30.510435513752583, 39.78206381720062]    // Nike 1 (kapatmak için)
+        ];
+
+        // Sevil Kozmetik - Saat yönünde sıralayarak daha düzgün bir poligon oluşturma
+        const sevilKozmetikPolygonCoordinates = [
+            [30.5101280846431, 39.782008449907266],      // Sevil Kozmetik 1
+            [30.509961693323078, 39.78178134068199],     // Sevil Kozmetik 2
+            [30.509464208454943, 39.78199781584922],     // Sevil Kozmetik 3
+            [30.509621797793557, 39.78221006920447],     // Sevil Kozmetik 10
+            [30.50975411066861, 39.782390405047664],     // Sevil Kozmetik 9
+            [30.509878064792417, 39.7823274653156],      // Sevil Kozmetik 8
+            [30.509976459302834, 39.78227509984956],     // Sevil Kozmetik 7
+            [30.51008172613163, 39.78222359050878],      // Sevil Kozmetik 6
+            [30.510045561065624, 39.782166135259644],    // Sevil Kozmetik 5
+            [30.510049971308035, 39.78209122081549],     // Sevil Kozmetik 4
+            [30.5101280846431, 39.782008449907266]       // Sevil Kozmetik 1 (kapatmak için)
+        ];
+
+        // Koton poligon verisi
+        const kotonPolygon = {
+            "type": "Feature",
+            "properties": {
+                "name": "Koton"
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [kotonPolygonCoordinates]
+            }
+        };
+        
+        // Sevil poligon verisi
+        const sevilPolygon = {
+            "type": "Feature",
+            "properties": {
+                "name": "Sevil"
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [sevilPolygonCoordinates]
+            }
+        };
+        
+        // Greyder poligon verisi
+        const greyderPolygon = {
+            "type": "Feature",
+            "properties": {
+                "name": "Greyder"
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [greyderPolygonCoordinates]
+            }
+        };
+
+        // Adidas poligon verisi
+        const adidasPolygon = {
+            "type": "Feature",
+            "properties": {
+                "name": "Adidas"
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [adidasPolygonCoordinates]
+            }
+        };
+
+        // Nike poligon verisi
+        const nikePolygon = {
+            "type": "Feature",
+            "properties": {
+                "name": "Nike"
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [nikePolygonCoordinates]
+            }
+        };
+
+        // Sevil Kozmetik poligon verisi
+        const sevilKozmetikPolygon = {
+            "type": "Feature",
+            "properties": {
+                "name": "Sevil Kozmetik"
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [sevilKozmetikPolygonCoordinates]
+            }
+        };
+
+        // Saat mağaza koordinatları
+        const saatLocations = [
+            {
+                "type": "Feature",
+                "properties": {
+                    "saat": "",
+                    "title": "Saat 1"
+                },
+                "geometry": {
+                    "coordinates": [30.509759844936355, 39.78238896652772],
+                    "type": "Point"
+                },
+                "id": 55
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "saat": "",
+                    "title": "Saat 2"
+                },
+                "geometry": {
+                    "coordinates": [30.509877995301053, 39.782328736045656],
+                    "type": "Point"
+                },
+                "id": 56
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "saat": "",
+                    "title": "Saat 3"
+                },
+                "geometry": {
+                    "coordinates": [30.50997596669984, 39.78227571974995],
+                    "type": "Point"
+                },
+                "id": 57
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "saat": "",
+                    "title": "Saat 4"
+                },
+                "geometry": {
+                    "coordinates": [30.51007653081325, 39.782227228642114],
+                    "type": "Point"
+                },
+                "id": 58
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "saat": "",
+                    "title": "Saat 5"
+                },
+                "geometry": {
+                    "coordinates": [30.510181209511188, 39.782291609280776],
+                    "type": "Point"
+                },
+                "id": 59
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "saat": "",
+                    "title": "Saat 6"
+                },
+                "geometry": {
+                    "coordinates": [30.51027009942817, 39.78230054149873],
+                    "type": "Point"
+                },
+                "id": 60
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "saat": "",
+                    "title": "Saat 7"
+                },
+                "geometry": {
+                    "coordinates": [30.51033748625437, 39.782288016893176],
+                    "type": "Point"
+                },
+                "id": 61
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "saat": "",
+                    "title": "Saat 8"
+                },
+                "geometry": {
+                    "coordinates": [30.510464585819733, 39.78245754794219],
+                    "type": "Point"
+                },
+                "id": 62
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "saat": "",
+                    "title": "Saat 9"
+                },
+                "geometry": {
+                    "coordinates": [30.510586015063524, 39.78262363669381],
+                    "type": "Point"
+                },
+                "id": 63
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "saat": "",
+                    "title": "Saat 10"
+                },
+                "geometry": {
+                    "coordinates": [30.510656017319093, 39.78271264384131],
+                    "type": "Point"
+                },
+                "id": 64
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "saat": "",
+                    "title": "Saat 11"
+                },
+                "geometry": {
+                    "coordinates": [30.51052855208127, 39.782766214001526],
+                    "type": "Point"
+                },
+                "id": 65
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "saat": "",
+                    "title": "Saat 12"
+                },
+                "geometry": {
+                    "coordinates": [30.510392075593643, 39.782827236155356],
+                    "type": "Point"
+                },
+                "id": 66
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "saat": "",
+                    "title": "Saat 13"
+                },
+                "geometry": {
+                    "coordinates": [30.510257490873812, 39.782889070467064],
+                    "type": "Point"
+                },
+                "id": 67
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "saat": "",
+                    "title": "Saat 14"
+                },
+                "geometry": {
+                    "coordinates": [30.51016787548855, 39.78292558769451],
+                    "type": "Point"
+                },
+                "id": 68
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "saat": "",
+                    "title": "Saat 15"
+                },
+                "geometry": {
+                    "coordinates": [30.50997472777445, 39.78267445897535],
+                    "type": "Point"
+                },
+                "id": 69
+            }
+        ];
+
+        // Saat - Saat yönünde sıralayarak daha düzgün bir poligon oluşturma
+        const saatPolygonCoordinates = [
+            [30.51016787548855, 39.78292558769451],    // Saat 14
+            [30.510257490873812, 39.782889070467064],  // Saat 13
+            [30.510392075593643, 39.782827236155356],  // Saat 12
+            [30.51052855208127, 39.782766214001526],   // Saat 11
+            [30.510656017319093, 39.78271264384131],   // Saat 10
+            [30.510586015063524, 39.78262363669381],   // Saat 9
+            [30.510464585819733, 39.78245754794219],   // Saat 8
+            [30.51033748625437, 39.782288016893176],   // Saat 7
+            [30.51027009942817, 39.78230054149873],    // Saat 6
+            [30.510181209511188, 39.782291609280776],  // Saat 5
+            [30.51007653081325, 39.782227228642114],   // Saat 4
+            [30.50997596669984, 39.78227571974995],    // Saat 3
+            [30.509877995301053, 39.782328736045656],  // Saat 2
+            [30.509759844936355, 39.78238896652772],   // Saat 1
+            [30.50997472777445, 39.78267445897535],    // Saat 15
+            [30.51016787548855, 39.78292558769451]     // Saat 14 (kapatmak için)
+        ];
+
+        // Saat poligon verisi
+        const saatPolygon = {
+            "type": "Feature",
+            "properties": {
+                "name": "Saat"
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [saatPolygonCoordinates]
+            }
+        };
+
+        // Giriş & Çıkış noktaları
+        const entranceExitLocations = [
+            {
+                "type": "Feature",
+                "properties": {
+                    "Giris&Cikis": "",
+                    "title": "Giriş & Çıkış 1"
+                },
+                "geometry": {
+                    "coordinates": [30.510739133343094, 39.78352560371849],
+                    "type": "Point"
+                },
+                "id": 70
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "Giris&Cikis": "",
+                    "title": "Giriş & Çıkış 2"
+                },
+                "geometry": {
+                    "coordinates": [30.5115339581497, 39.78297775722274],
+                    "type": "Point"
+                },
+                "id": 71
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "Giris&Cikis": "",
+                    "title": "Giriş & Çıkış 3"
+                },
+                "geometry": {
+                    "coordinates": [30.511000549512687, 39.78257333299993],
+                    "type": "Point"
+                },
+                "id": 72
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "Giris&Cikis": "",
+                    "title": "Giriş & Çıkış 4"
+                },
+                "geometry": {
+                    "coordinates": [30.50998706175193, 39.78176987430132],
+                    "type": "Point"
+                },
+                "id": 73
+            }
+        ];
+
+        // Giriş & Çıkış verileri için GeoJSON nesnesi
+        const entranceExitsGeoJson = {
+            "type": "FeatureCollection",
+            "features": entranceExitLocations
+        };
+
+        // Yürüyen Merdiven noktası
+        const escalatorLocation = {
+            "type": "Feature",
+            "properties": {
+                "Yürüyen Merdiven": "",
+                "title": "Yürüyen Merdiven"
+            },
+            "geometry": {
+                "coordinates": [30.51019157757949, 39.78205457506408],
+                "type": "Point"
+            },
+            "id": 74
+        };
+
+        // Yürüyen Merdiven verisi için GeoJSON nesnesi
+        const escalatorGeoJson = {
+            "type": "FeatureCollection",
+            "features": [escalatorLocation]
+        };
+
+        // Kiosk Board noktası
+        const kioskLocation = {
+            "type": "Feature",
+            "properties": {
+                "Kioask Board": "",
+                "title": "Kiosk Board"
+            },
+            "geometry": {
+                "coordinates": [30.510279315173108, 39.78217707258253],
+                "type": "Point"
+            },
+            "id": 75
+        };
+
+        // Kiosk Board verisi için GeoJSON nesnesi
+        const kioskGeoJson = {
+            "type": "FeatureCollection",
+            "features": [kioskLocation]
+        };
+
+        // Tüm mağazaların ortalamasını al
+        const allLocations = [...kotonLocations, ...sevilLocations, ...greyderLocations, ...adidasLocations, ...nikeLocations, ...sevilKozmetikLocations, ...saatLocations, ...entranceExitLocations, escalatorLocation, kioskLocation];
+        const avgLng = allLocations.reduce((sum, loc) => sum + loc.geometry.coordinates[0], 0) / allLocations.length;
+        const avgLat = allLocations.reduce((sum, loc) => sum + loc.geometry.coordinates[1], 0) / allLocations.length;
+
+        // Haritayı başlat
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/light-v11',
+            center: [avgLng, avgLat],
+            zoom: 17,
+            pitch: 0,  // Kat planı için düz görünüm
+            bearing: 0  // Harita yönü
+        });
+
+        map.on('load', () => {
+            // Mapbox labelları ve gereksiz elementleri gizle
+            try {
+                map.setLayoutProperty('country-label', 'visibility', 'none');
+                map.setLayoutProperty('road-label', 'visibility', 'none');
+            } catch (error) {
+                console.log("Some map layers might not be available:", error);
+            }
+            
+            // Koton poligon verilerini ekle
+            map.addSource('koton-polygon', {
+                'type': 'geojson',
+                'data': kotonPolygon
+            });
+            
+            // Sevil poligon verilerini ekle
+            map.addSource('sevil-polygon', {
+                'type': 'geojson',
+                'data': sevilPolygon
+            });
+            
+            // Greyder poligon verilerini ekle
+            map.addSource('greyder-polygon', {
+                'type': 'geojson',
+                'data': greyderPolygon
+            });
+
+            // Adidas poligon verilerini ekle
+            map.addSource('adidas-polygon', {
+                'type': 'geojson',
+                'data': adidasPolygon
+            });
+
+            // Nike poligon verilerini ekle
+            map.addSource('nike-polygon', {
+                'type': 'geojson',
+                'data': nikePolygon
+            });
+
+            // Sevil Kozmetik poligon verilerini ekle
+            map.addSource('sevil-kozmetik-polygon', {
+                'type': 'geojson',
+                'data': sevilKozmetikPolygon
+            });
+
+            // Saat poligon verilerini ekle
+            map.addSource('saat-polygon', {
+                'type': 'geojson',
+                'data': saatPolygon
+            });
+
+            // Giriş & Çıkış verilerini ekle
+            map.addSource('entrances-exits', {
+                'type': 'geojson',
+                'data': entranceExitsGeoJson
+            });
+
+            // Yürüyen Merdiven verisini ekle
+            map.addSource('escalator', {
+                'type': 'geojson',
+                'data': escalatorGeoJson
+            });
+
+            // Kiosk Board verisini ekle
+            map.addSource('kiosk', {
+                'type': 'geojson',
+                'data': kioskGeoJson
+            });
+
+            // Koton poligonu haritaya ekle - dolgu
+            map.addLayer({
+                'id': 'koton-polygon-fill',
+                'type': 'fill',
+                'source': 'koton-polygon',
+                'layout': {},
+                'paint': {
+                    'fill-color': '#FF69B4',
+                    'fill-opacity': 0.8
+                }
+            });
+
+            // Koton poligonu haritaya ekle - kenar çizgisi
+            map.addLayer({
+                'id': 'koton-polygon-outline',
+                'type': 'line',
+                'source': 'koton-polygon',
+                'layout': {},
+                'paint': {
+                    'line-color': '#333333',
+                    'line-width': 2
+                }
+            });
+            
+            // Sevil poligonu haritaya ekle - dolgu
+            map.addLayer({
+                'id': 'sevil-polygon-fill',
+                'type': 'fill',
+                'source': 'sevil-polygon',
+                'layout': {},
+                'paint': {
+                    'fill-color': '#4B0082', // Indigo rengi - kozmetik mağazası için
+                    'fill-opacity': 0.8
+                }
+            });
+            
+            // Greyder poligonu haritaya ekle - dolgu
+            map.addLayer({
+                'id': 'greyder-polygon-fill',
+                'type': 'fill',
+                'source': 'greyder-polygon',
+                'layout': {},
+                'paint': {
+                    'fill-color': '#8B4513', // SaddleBrown rengi - ayakkabı mağazası için
+                    'fill-opacity': 0.8
+                }
+            });
+
+            // Adidas poligonu haritaya ekle - dolgu
+            map.addLayer({
+                'id': 'adidas-polygon-fill',
+                'type': 'fill',
+                'source': 'adidas-polygon',
+                'layout': {},
+                'paint': {
+                    'fill-color': '#0000FF', // Mavi renk - Adidas markası için
+                    'fill-opacity': 0.8
+                }
+            });
+
+            // Nike poligonu haritaya ekle - dolgu
+            map.addLayer({
+                'id': 'nike-polygon-fill',
+                'type': 'fill',
+                'source': 'nike-polygon',
+                'layout': {},
+                'paint': {
+                    'fill-color': '#FF6600', // Turuncu renk - Nike markası için
+                    'fill-opacity': 0.8
+                }
+            });
+
+            // Sevil Kozmetik poligonu haritaya ekle - dolgu
+            map.addLayer({
+                'id': 'sevil-kozmetik-polygon-fill',
+                'type': 'fill',
+                'source': 'sevil-kozmetik-polygon',
+                'layout': {},
+                'paint': {
+                    'fill-color': '#9400D3', // Mor renk - Sevil Kozmetik markası için
+                    'fill-opacity': 0.8
+                }
+            });
+
+            // Saat poligonu haritaya ekle - dolgu
+            map.addLayer({
+                'id': 'saat-polygon-fill',
+                'type': 'fill',
+                'source': 'saat-polygon',
+                'layout': {},
+                'paint': {
+                    'fill-color': '#008000', // Yeşil renk - Saat mağazası için
+                    'fill-opacity': 0.8
+                }
+            });
+
+            // Sevil poligonu haritaya ekle - kenar çizgisi
+            map.addLayer({
+                'id': 'sevil-polygon-outline',
+                'type': 'line',
+                'source': 'sevil-polygon',
+                'layout': {},
+                'paint': {
+                    'line-color': '#333333',
+                    'line-width': 2
+                }
+            });
+            
+            // Greyder poligonu haritaya ekle - kenar çizgisi
+            map.addLayer({
+                'id': 'greyder-polygon-outline',
+                'type': 'line',
+                'source': 'greyder-polygon',
+                'layout': {},
+                'paint': {
+                    'line-color': '#333333',
+                    'line-width': 2
+                }
+            });
+
+            // Adidas poligonu haritaya ekle - kenar çizgisi
+            map.addLayer({
+                'id': 'adidas-polygon-outline',
+                'type': 'line',
+                'source': 'adidas-polygon',
+                'layout': {},
+                'paint': {
+                    'line-color': '#333333',
+                    'line-width': 2
+                }
+            });
+
+            // Nike poligonu haritaya ekle - kenar çizgisi
+            map.addLayer({
+                'id': 'nike-polygon-outline',
+                'type': 'line',
+                'source': 'nike-polygon',
+                'layout': {},
+                'paint': {
+                    'line-color': '#333333',
+                    'line-width': 2
+                }
+            });
+
+            // Sevil Kozmetik poligonu haritaya ekle - kenar çizgisi
+            map.addLayer({
+                'id': 'sevil-kozmetik-polygon-outline',
+                'type': 'line',
+                'source': 'sevil-kozmetik-polygon',
+                'layout': {},
+                'paint': {
+                    'line-color': '#333333',
+                    'line-width': 2
+                }
+            });
+
+            // Saat poligonu haritaya ekle - kenar çizgisi
+            map.addLayer({
+                'id': 'saat-polygon-outline',
+                'type': 'line',
+                'source': 'saat-polygon',
+                'layout': {},
+                'paint': {
+                    'line-color': '#333333',
+                    'line-width': 2
+                }
+            });
+
+            // Koton yazısını poligon üzerine ekle
+            map.addLayer({
+                'id': 'koton-polygon-label',
+                'type': 'symbol',
+                'source': 'koton-polygon',
+                'layout': {
+                    'text-field': 'KOTON',
+                    'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+                    'text-size': 24,
+                    'text-transform': 'uppercase',
+                    'text-letter-spacing': 0.05,
+                    'text-offset': [0, 0],
+                    'text-anchor': 'center',
+                    'text-justify': 'center'
+                },
+                'paint': {
+                    'text-color': '#000000',
+                    'text-halo-color': '#FFFFFF',
+                    'text-halo-width': 2
+                }
+            });
+            
+            // Sevil yazısını poligon üzerine ekle
+            map.addLayer({
+                'id': 'sevil-polygon-label',
+                'type': 'symbol',
+                'source': 'sevil-polygon',
+                'layout': {
+                    'text-field': 'SEVİL',
+                    'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+                    'text-size': 24,
+                    'text-transform': 'uppercase',
+                    'text-letter-spacing': 0.05,
+                    'text-offset': [0, 0],
+                    'text-anchor': 'center',
+                    'text-justify': 'center'
+                },
+                'paint': {
+                    'text-color': '#FFFFFF',
+                    'text-halo-color': '#000000',
+                    'text-halo-width': 1
+                }
+            });
+            
+            // Greyder yazısını poligon üzerine ekle
+            map.addLayer({
+                'id': 'greyder-polygon-label',
+                'type': 'symbol',
+                'source': 'greyder-polygon',
+                'layout': {
+                    'text-field': 'GREYDER',
+                    'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+                    'text-size': 22,
+                    'text-transform': 'uppercase',
+                    'text-letter-spacing': 0.05,
+                    'text-offset': [0, 0],
+                    'text-anchor': 'center',
+                    'text-justify': 'center'
+                },
+                'paint': {
+                    'text-color': '#FFFFFF',
+                    'text-halo-color': '#000000',
+                    'text-halo-width': 1
+                }
+            });
+
+            // Adidas yazısını poligon üzerine ekle
+            map.addLayer({
+                'id': 'adidas-polygon-label',
+                'type': 'symbol',
+                'source': 'adidas-polygon',
+                'layout': {
+                    'text-field': 'ADIDAS',
+                    'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+                    'text-size': 22,
+                    'text-transform': 'uppercase',
+                    'text-letter-spacing': 0.05,
+                    'text-offset': [0, 0],
+                    'text-anchor': 'center',
+                    'text-justify': 'center'
+                },
+                'paint': {
+                    'text-color': '#FFFFFF',
+                    'text-halo-color': '#000000',
+                    'text-halo-width': 1
+                }
+            });
+
+            // Nike yazısını poligon üzerine ekle
+            map.addLayer({
+                'id': 'nike-polygon-label',
+                'type': 'symbol',
+                'source': 'nike-polygon',
+                'layout': {
+                    'text-field': 'NIKE',
+                    'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+                    'text-size': 22,
+                    'text-transform': 'uppercase',
+                    'text-letter-spacing': 0.05,
+                    'text-offset': [0, 0],
+                    'text-anchor': 'center',
+                    'text-justify': 'center'
+                },
+                'paint': {
+                    'text-color': '#FFFFFF',
+                    'text-halo-color': '#000000',
+                    'text-halo-width': 1
+                }
+            });
+
+            // Sevil Kozmetik yazısını poligon üzerine ekle
+            map.addLayer({
+                'id': 'sevil-kozmetik-polygon-label',
+                'type': 'symbol',
+                'source': 'sevil-kozmetik-polygon',
+                'layout': {
+                    'text-field': 'SEVİL\nKOZMETİK',
+                    'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+                    'text-size': 18,
+                    'text-transform': 'uppercase',
+                    'text-letter-spacing': 0.05,
+                    'text-offset': [0, 0],
+                    'text-anchor': 'center',
+                    'text-justify': 'center'
+                },
+                'paint': {
+                    'text-color': '#FFFFFF',
+                    'text-halo-color': '#000000',
+                    'text-halo-width': 1
+                }
+            });
+
+            // Saat yazısını poligon üzerine ekle
+            map.addLayer({
+                'id': 'saat-polygon-label',
+                'type': 'symbol',
+                'source': 'saat-polygon',
+                'layout': {
+                    'text-field': 'SAAT',
+                    'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+                    'text-size': 22,
+                    'text-transform': 'uppercase',
+                    'text-letter-spacing': 0.05,
+                    'text-offset': [0, 0],
+                    'text-anchor': 'center',
+                    'text-justify': 'center'
+                },
+                'paint': {
+                    'text-color': '#FFFFFF',
+                    'text-halo-color': '#000000',
+                    'text-halo-width': 1
+                }
+            });
+
+            // Giriş & Çıkış işaretleri 
+            map.addLayer({
+                'id': 'entrances-exits-circles',
+                'type': 'circle',
+                'source': 'entrances-exits',
+                'paint': {
+                    'circle-radius': 12,
+                    'circle-color': '#FF0000',
+                    'circle-stroke-width': 2,
+                    'circle-stroke-color': '#FFFFFF'
+                }
+            });
+
+            // Giriş & Çıkış sembolü ekle
+            map.addLayer({
+                'id': 'entrances-exits-symbol',
+                'type': 'symbol',
+                'source': 'entrances-exits',
+                'layout': {
+                    'text-field': '🚪',
+                    'text-font': ['Open Sans Regular', 'Arial Unicode MS Regular'],
+                    'text-size': 20,
+                    'text-offset': [0, 0],
+                    'text-anchor': 'center'
+                }
+            });
+
+            // Giriş & Çıkış etiketleri
+            map.addLayer({
+                'id': 'entrances-exits-labels',
+                'type': 'symbol',
+                'source': 'entrances-exits',
+                'layout': {
+                    'text-field': 'GİRİŞ',
+                    'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+                    'text-size': 12,
+                    'text-offset': [0, -2.2],
+                    'text-anchor': 'center'
+                },
+                'paint': {
+                    'text-color': '#000000',
+                    'text-halo-color': '#FFFFFF',
+                    'text-halo-width': 2
+                }
+            });
+
+            // Yürüyen Merdiven işareti
+            map.addLayer({
+                'id': 'escalator-circle',
+                'type': 'circle',
+                'source': 'escalator',
+                'paint': {
+                    'circle-radius': 12,
+                    'circle-color': '#663399', // Mor
+                    'circle-stroke-width': 2,
+                    'circle-stroke-color': '#FFFFFF'
+                }
+            });
+
+            // Yürüyen Merdiven sembolü
+            map.addLayer({
+                'id': 'escalator-symbol',
+                'type': 'symbol',
+                'source': 'escalator',
+                'layout': {
+                    'text-field': '⤴',
+                    'text-font': ['Open Sans Regular', 'Arial Unicode MS Regular'],
+                    'text-size': 20,
+                    'text-offset': [0, 0],
+                    'text-anchor': 'center'
+                }
+            });
+
+            // Yürüyen Merdiven etiketi
+            map.addLayer({
+                'id': 'escalator-label',
+                'type': 'symbol',
+                'source': 'escalator',
+                'layout': {
+                    'text-field': 'YÜRÜYEN MERDİVEN',
+                    'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+                    'text-size': 10,
+                    'text-offset': [0, -2.2],
+                    'text-anchor': 'center'
+                },
+                'paint': {
+                    'text-color': '#000000',
+                    'text-halo-color': '#FFFFFF',
+                    'text-halo-width': 2
+                }
+            });
+
+            // Kiosk Board işareti
+            map.addLayer({
+                'id': 'kiosk-circle',
+                'type': 'circle',
+                'source': 'kiosk',
+                'paint': {
+                    'circle-radius': 12,
+                    'circle-color': '#00BFFF', // Açık Mavi
+                    'circle-stroke-width': 2,
+                    'circle-stroke-color': '#FFFFFF'
+                }
+            });
+
+            // Kiosk Board sembolü
+            map.addLayer({
+                'id': 'kiosk-symbol',
+                'type': 'symbol',
+                'source': 'kiosk',
+                'layout': {
+                    'text-field': 'ℹ️',
+                    'text-font': ['Open Sans Regular', 'Arial Unicode MS Regular'],
+                    'text-size': 16,
+                    'text-offset': [0, 0],
+                    'text-anchor': 'center'
+                }
+            });
+
+            // Kiosk Board etiketi
+            map.addLayer({
+                'id': 'kiosk-label',
+                'type': 'symbol',
+                'source': 'kiosk',
+                'layout': {
+                    'text-field': 'BİLGİ EKRANI',
+                    'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+                    'text-size': 10,
+                    'text-offset': [0, -2.2],
+                    'text-anchor': 'center'
+                },
+                'paint': {
+                    'text-color': '#000000',
+                    'text-halo-color': '#FFFFFF',
+                    'text-halo-width': 2
+                }
+            });
+
+            // Kat planı için arka planı beyaza yakın bir renk yap
+            map.setPaintProperty('background', 'background-color', '#f8f8f8');
+        });
+
+        // Navigasyon kontrollerini ekle
+        map.addControl(new mapboxgl.NavigationControl());
+        map.addControl(new mapboxgl.FullscreenControl());
+    </script>
+</body>
+</html> 
